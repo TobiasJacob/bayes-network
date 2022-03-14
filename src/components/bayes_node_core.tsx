@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import { BayesNetworkData, BayesNodeData } from '../data/bayes_network';
+import { BayesNetworkData, BayesNodeData, getValueCombinations } from '../data/bayes_network';
 import { TempConnection } from './bayes_connection_renderer';
 
 import './bayes_node.css';
@@ -56,6 +56,8 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
         })
     }
 
+    const rows = getValueCombinations(network, nodeName);
+
     return <div>
         <input type="text" value={bNode.name} onChange={setName}/>
         <table>
@@ -71,6 +73,13 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                     </td>
                 </tr>
             </thead>
+            <tbody>
+                {
+                    rows.map((row) => {
+                        row
+                    })
+                }
+            </tbody>
         </table>
     </div>
 }
