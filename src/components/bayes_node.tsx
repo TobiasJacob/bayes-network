@@ -8,7 +8,10 @@ class NodeProps {
 }
 
 const BayesNode = (props: NodeProps) => {
-    return <div className='BayesNode'>
+    return <div className='BayesNode' style={{
+        top: props.positionY,
+        left: props.positionX
+    }}>
         Bayes node
     </div>
 }

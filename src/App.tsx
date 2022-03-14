@@ -1,8 +1,8 @@
 import React from 'react';
-import BayesNode from './components/bayes_node';
+import BayesCanvas from './components/bayes_canvas';
 
 const App = () => {
-    return <BayesNode positionX={0} positionY={0} />
+    return <BayesCanvas />
 }
 
 export default App;
