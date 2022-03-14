@@ -7,3 +7,14 @@
     position: absolute;
     transform: translate(-50%, -50%);
 }
+
+.ConnectButton {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background-color: white;
+    border: none;
+    border-radius: 1em;
+    padding: 1em;
+}

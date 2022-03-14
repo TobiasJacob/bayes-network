@@ -12,10 +12,14 @@ const BayesNode = (props: NodeProps) => {
     const [dragged, setDragged] = useState(false);
 
     const mouseDown = (ev: React.MouseEvent<HTMLDivElement>) => {
+        ev.preventDefault();
         setDragged(true);
     }
     const mouseMove = (ev: React.MouseEvent<HTMLDivElement>) => {
-        if (dragged) {
+        ev.preventDefault();
+        if (ev.buttons != 1) {
+            setDragged(false);
+        } else if (dragged) {
             props.setPosition(
                 props.positionX + ev.movementX,
                 props.positionY + ev.movementY,
@@ -23,7 +27,13 @@ const BayesNode = (props: NodeProps) => {
         }
     }
     const mouseUp = (ev: React.MouseEvent<HTMLDivElement>) => {
+        ev.preventDefault();
         setDragged(false);
+    }
+    const startConnect = (ev: React.MouseEvent<HTMLButtonElement>) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        console.log("start");
     }
 
     return <div className='BayesNode' style={{
@@ -31,6 +41,7 @@ const BayesNode = (props: NodeProps) => {
         left: props.positionX
     }} onMouseDown={mouseDown} onMouseMove={mouseMove} onMouseUp={mouseUp}>
         Bayes node
+        <button className='ConnectButton' onMouseDown={startConnect}>Connect</button>
     </div>
 }
 
