@@ -1,0 +1,173 @@
+{
+    "nodes": {
+        "node0": {
+            "positionX": 480,
+            "positionY": 119,
+            "name": "Intelligence",
+            "table": {
+                "nodeValues": {
+                    "val0": "High",
+                    "val1": "Low"
+                },
+                "nodeProbabilities": {
+                    "val0": 0.54,
+                    "val1": 0.4600000000000001
+                },
+                "rows": {
+                    "": {
+                        "val0": "0.5",
+                        "val1": "0.5"
+                    }
+                }
+            },
+            "parents": [],
+            "selectedValue": ""
+        },
+        "node1": {
+            "positionX": 170,
+            "positionY": 120,
+            "name": "Difficulty",
+            "table": {
+                "nodeValues": {
+                    "val0": "Difficult",
+                    "val1": "Easy"
+                },
+                "nodeProbabilities": {
+                    "val0": 0.46,
+                    "val1": 0.54
+                },
+                "rows": {
+                    "": {
+                        "val0": "0.5",
+                        "val1": "0.5"
+                    }
+                }
+            },
+            "parents": [],
+            "selectedValue": ""
+        },
+        "node2": {
+            "positionX": 326,
+            "positionY": 476,
+            "name": "Grade",
+            "table": {
+                "nodeValues": {
+                    "val0": "Good",
+                    "val1": "Bad"
+                },
+                "nodeProbabilities": {
+                    "val0": 0.5999999999999999,
+                    "val1": 0.4,
+                    "val2": 0.3548387096774194,
+                    "val3": 0.22500000000000003
+                },
+                "rows": {
+                    "node0=val0,node1=val0,": {
+                        "val0": "0.5",
+                        "val1": "0.5",
+                        "val2": "0.3",
+                        "val3": "0.01"
+                    },
+                    "node0=val0,node1=val1,": {
+                        "val0": "0.9",
+                        "val1": "0.1",
+                        "val2": "0.2",
+                        "val3": "0.1"
+                    },
+                    "node0=val1,node1=val1,": {
+                        "val0": "0.5",
+                        "val1": "0.5",
+                        "val2": "0.3",
+                        "val3": "0.4"
+                    },
+                    "node0=val1,node1=val0,": {
+                        "val0": "0.1",
+                        "val1": "0.9",
+                        "val2": "0.3",
+                        "val3": "0.39"
+                    }
+                }
+            },
+            "parents": [
+                "node0",
+                "node1"
+            ],
+            "selectedValue": ""
+        },
+        "node3": {
+            "positionX": 849,
+            "positionY": 442,
+            "name": "SAT Score",
+            "table": {
+                "nodeValues": {
+                    "val0": "High",
+                    "val1": "Middle",
+                    "val2": "Low"
+                },
+                "nodeProbabilities": {
+                    "val0": 0.31600000000000006,
+                    "val1": 0.4,
+                    "val2": 0.28400000000000003
+                },
+                "rows": {
+                    "": {
+                        "val0": "1.0"
+                    },
+                    "node0=val0,": {
+                        "val0": "0.5",
+                        "val1": "0.4",
+                        "val2": "0.1"
+                    },
+                    "node0=val1,": {
+                        "val0": "0.1",
+                        "val1": "0.4",
+                        "val2": "0.5"
+                    }
+                }
+            },
+            "parents": [
+                "node0"
+            ]
+        },
+        "node4": {
+            "positionX": 327,
+            "positionY": 862,
+            "name": "Recommendation Letter",
+            "table": {
+                "nodeValues": {
+                    "val0": "Yes",
+                    "val1": "No"
+                },
+                "nodeProbabilities": {
+                    "val0": 1,
+                    "val1": 0
+                },
+                "rows": {
+                    "": {
+                        "val0": "1.0"
+                    },
+                    "node2=val0,": {
+                        "val0": "0.9",
+                        "val1": "0.1"
+                    },
+                    "node2=val1,": {
+                        "val0": "0.6",
+                        "val1": "0.4"
+                    },
+                    "node2=val2,": {
+                        "val0": "0.2",
+                        "val1": "0.8"
+                    },
+                    "node2=val3,": {
+                        "val0": "0.01",
+                        "val1": "0.99"
+                    }
+                }
+            },
+            "parents": [
+                "node2"
+            ],
+            "selectedValue": "val0"
+        }
+    }
+}

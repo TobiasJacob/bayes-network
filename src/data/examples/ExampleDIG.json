@@ -1,8 +1,8 @@
 {
     "nodes": {
         "node0": {
-            "positionX": 180,
-            "positionY": 142,
+            "positionX": 480,
+            "positionY": 119,
             "name": "Intelligence",
             "table": {
                 "nodeValues": {
@@ -11,7 +11,7 @@
                 },
                 "nodeProbabilities": {
                     "val0": 0.5000000000000001,
-                    "val1": 0.5
+                    "val1": 0.5000000000000001
                 },
                 "rows": {
                     "": {
@@ -23,8 +23,8 @@
             "parents": []
         },
         "node1": {
-            "positionX": 488,
-            "positionY": 142,
+            "positionX": 170,
+            "positionY": 120,
             "name": "Difficulty",
             "table": {
                 "nodeValues": {
@@ -33,7 +33,7 @@
                 },
                 "nodeProbabilities": {
                     "val0": 0.5000000000000001,
-                    "val1": 0.5
+                    "val1": 0.5000000000000001
                 },
                 "rows": {
                     "": {
@@ -42,11 +42,12 @@
                     }
                 }
             },
-            "parents": []
+            "parents": [],
+            "selectedValue": ""
         },
         "node2": {
-            "positionX": 334,
-            "positionY": 512,
+            "positionX": 326,
+            "positionY": 476,
             "name": "Grade",
             "table": {
                 "nodeValues": {
@@ -56,22 +57,22 @@
                     "val3": "D"
                 },
                 "nodeProbabilities": {
-                    "val0": 0.22499999999999998,
-                    "val1": 0.3,
-                    "val2": 0.275,
-                    "val3": 0.2
+                    "val0": 0.22500000000000003,
+                    "val1": 0.275,
+                    "val2": 0.2750000000000001,
+                    "val3": 0.22500000000000006
                 },
                 "rows": {
                     "node0=val0,node1=val0,": {
-                        "val0": "0.2",
-                        "val1": "0.4",
+                        "val0": "0.3",
+                        "val1": "0.3",
                         "val2": "0.3",
                         "val3": "0.1"
                     },
                     "node0=val0,node1=val1,": {
-                        "val0": "0.5",
+                        "val0": "0.4",
                         "val1": "0.3",
-                        "val2": "0.1",
+                        "val2": "0.2",
                         "val3": "0.1"
                     },
                     "node0=val1,node1=val1,": {
@@ -83,15 +84,16 @@
                     "node0=val1,node1=val0,": {
                         "val0": "0.1",
                         "val1": "0.3",
-                        "val2": "0.4",
-                        "val3": "0.2"
+                        "val2": "0.3",
+                        "val3": "0.3"
                     }
                 }
             },
             "parents": [
                 "node0",
                 "node1"
-            ]
+            ],
+            "selectedValue": ""
         }
     }
 }

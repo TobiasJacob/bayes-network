@@ -21,8 +21,8 @@ const BayesCanvas = () => {
             nodes: {
                 ...network.nodes,
                 [key]: {
-                    positionX: 200,
-                    positionY: 200,
+                    positionX: 300 * Math.random() + 200,
+                    positionY: 300 * Math.random() + 200,
                     name: "Node",
                     table: {
                         nodeValues: {"val0": "A"},
@@ -85,10 +85,10 @@ const BayesCanvas = () => {
                 Open
             </label>
             <input type="file" id="file-input" className='fileInput' onChange={async (ev) => { await loadNetwork(ev, setNetwork) }} value=""/> <br />
-            <button>Example 1</button>
-            <button>Example 2</button>
-            <button>Example 3</button>
-
+            <button onClick={() => {setNetwork(exampleNetwork("New"))}}>New</button>
+            <button onClick={() => {setNetwork(exampleNetwork("Ex1"))}}>Example 1</button>
+            <button onClick={() => {setNetwork(exampleNetwork("Ex2"))}}>Example 2</button>
+            <button onClick={() => {setNetwork(exampleNetwork("Ex3"))}}>Example 3</button>
         </div>
     </div>
 }

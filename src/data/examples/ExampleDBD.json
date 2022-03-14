@@ -1,0 +1,89 @@
+{
+    "nodes": {
+        "node0": {
+            "positionX": 362.1662122096542,
+            "positionY": 127.46448820303738,
+            "name": "Weather",
+            "table": {
+                "nodeValues": {
+                    "val0": "Sunny",
+                    "val1": "Cloudy"
+                },
+                "nodeProbabilities": {
+                    "val0": 0.5,
+                    "val1": 0.5
+                },
+                "rows": {
+                    "": {
+                        "val0": "0.5",
+                        "val1": "0.5"
+                    }
+                }
+            },
+            "parents": []
+        },
+        "node1": {
+            "positionX": 542.2219807887642,
+            "positionY": 454.59329934882123,
+            "name": "Eating Ice Cream",
+            "table": {
+                "nodeValues": {
+                    "val0": "Eat",
+                    "val1": "No Icecream"
+                },
+                "nodeProbabilities": {
+                    "val0": 0.15500000000000003,
+                    "val1": 0.845
+                },
+                "rows": {
+                    "": {
+                        "val0": "1.0"
+                    },
+                    "node0=val0,": {
+                        "val0": "0.3",
+                        "val1": "0.7"
+                    },
+                    "node0=val1,": {
+                        "val0": "0.01",
+                        "val1": "0.99"
+                    }
+                }
+            },
+            "parents": [
+                "node0"
+            ],
+            "selectedValue": ""
+        },
+        "node2": {
+            "positionX": 193.15262952443368,
+            "positionY": 454.76159988726,
+            "name": "Death by Drowning",
+            "table": {
+                "nodeValues": {
+                    "val0": "High Risk",
+                    "val1": "Low Risk"
+                },
+                "nodeProbabilities": {
+                    "val0": 0.050499999999999996,
+                    "val1": 0.9495
+                },
+                "rows": {
+                    "": {
+                        "val0": "1.0"
+                    },
+                    "node0=val0,": {
+                        "val0": "0.1",
+                        "val1": "0.9"
+                    },
+                    "node0=val1,": {
+                        "val0": "0.001",
+                        "val1": "0.999"
+                    }
+                }
+            },
+            "parents": [
+                "node0"
+            ]
+        }
+    }
+}
