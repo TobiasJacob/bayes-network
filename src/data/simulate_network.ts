@@ -46,7 +46,7 @@ export const simulateNetwork = (network: BayesNetworkData) => {
         });
         probabilities[hashCondition(networkState)] = result;
     });
-    
+
     // Sum probabilities for all possible states
     nodeKeys.forEach((nodeName) => {
         const node = network.nodes[nodeName];
@@ -63,14 +63,14 @@ export const simulateNetwork = (network: BayesNetworkData) => {
     })
 
     // Normalize probabilities to 1.0
+    let totalProbability = 0.0;
+    Object.values(probabilities).forEach((val) => {
+        totalProbability += val;
+    });
     nodeKeys.forEach((nodeName) => {
         const node = network.nodes[nodeName];
-        let totalProbability = 0.0;
         Object.keys(node.table.nodeValues).forEach((nodeVal) => {
-            totalProbability += node.table.nodeProbabilities[nodeVal];
-        })
-        Object.keys(node.table.nodeValues).forEach((nodeVal) => {
-            node.table.nodeProbabilities[nodeVal] /= totalProbability;
+            node.table.nodeProbabilities[nodeVal] *= 1 / totalProbability;
         })
     })
 
