@@ -47,6 +47,13 @@ const BayesConnectionRenderer = ({network, setNetwork}: BayesConnectionRendererP
                             top: buttonY,
                             left: buttonX
                         }}
+                        onClick={() => {
+                            const {[key]: deletedKey, ...connections} = network.connections
+                            setNetwork({
+                                ...network,
+                                connections
+                            })
+                        }}
                     >Remove</button>
                 );
             })
