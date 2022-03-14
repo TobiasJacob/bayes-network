@@ -3,15 +3,28 @@
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: green;
+    background-color: rgb(29, 29, 29);
     position: relative;
 }
 
 .AddButton {
     position: absolute;
+    top: 1em;
+    right: 1em;
 }
 
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Roboto';
+}
+
+button {
+    background-color: rgb(70, 98, 189);
+    border: none;
+    border-radius: 1em;
+    padding: 1em;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
 }

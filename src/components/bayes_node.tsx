@@ -53,7 +53,7 @@ const BayesNode = ({nodeName, network, setNetwork, setTempConnection}: NodeProps
         left: bNode.positionX
     }} onMouseDown={mouseDown} onMouseMove={mouseMove} onMouseUp={mouseUp}>
         <BayesNodeCore nodeName={nodeName} network={network} setNetwork={setNetwork} />
-        <button className='ConnectButton' onMouseDown={startConnect}>Connect</button>
+        <button className='ConnectButton' onMouseDown={startConnect}>+</button>
     </div>
 }
 

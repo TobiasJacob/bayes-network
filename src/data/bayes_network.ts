@@ -83,3 +83,12 @@ export const hashCondition = (cond: Record<string, string>) => {
     })
     return res;
 }
+
+export const getRowCount = (network: BayesNetworkData, nodeName: string) => {
+    const parents = getParents(network, nodeName);
+    let rows = 1;
+    parents.forEach((parentName) => {
+        rows *= Object.keys(network.nodes[parentName].table.nodeValues).length;
+    })
+    return rows;
+}
