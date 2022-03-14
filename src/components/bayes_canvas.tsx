@@ -25,8 +25,7 @@ const BayesCanvas = () => {
 
     return <div className='BayesCanvas'>
         <button className='AddButton' onClick={addNode}>AddButton</button>
-        <BayesConnectionRenderer network={network}/>
-
+        <BayesConnectionRenderer network={network} setNetwork={setNetwork}/>
         {
             Object.entries(network.nodes).map(([key, bNode]) => {
                 return <BayesNode key={key} positionX={bNode.positionX} positionY={bNode.positionY} setPosition={
