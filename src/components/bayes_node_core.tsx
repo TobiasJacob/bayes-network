@@ -162,7 +162,7 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                     })}
                     {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
                         return <td key={key}>
-                            {bNode.table.nodeProbabilities[key]}
+                            {bNode.table.nodeProbabilities[key].toFixed(2)}
                         </td>
                     })}
                     <td />
