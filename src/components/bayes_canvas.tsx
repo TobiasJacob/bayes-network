@@ -12,7 +12,7 @@ const BayesCanvas = () => {
 
     const addNode = () => {
         console.log("add")
-        var key = "node" + (Object.keys(network.nodes).length + 1);
+        var key = "node" + Object.keys(network.nodes).length;
         setNetwork({
             ...network,
             nodes: {
@@ -22,8 +22,8 @@ const BayesCanvas = () => {
                     positionY: 200,
                     name: "Node",
                     table: {
-                        nodeValues: ["A"],
-                        rows: [ {parentValues: {}, probabilities: 1.0} ]
+                        nodeValues: {"val0": "A"},
+                        rows: {"": {"val0": 1.0} }
                     }
                 }
             }
@@ -47,7 +47,7 @@ const BayesCanvas = () => {
                 if (Object.prototype.hasOwnProperty.call(network.nodes, key)) {
                     const bNode = network.nodes[key];
                     if (Math.abs(bNode.positionX - tempConnection.toX) < 80 && Math.abs(bNode.positionY - tempConnection.toY) < 80) {
-                        const connKey = "conn" + (Object.keys(network.connections).length + 1);
+                        const connKey = "conn" + Object.keys(network.connections).length;
                         if (existsConnection(network, tempConnection.from, key)) continue;
                         setNetwork({
                             ...network,

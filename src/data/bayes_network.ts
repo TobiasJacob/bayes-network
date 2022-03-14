@@ -1,11 +1,6 @@
-export class ProbabilityTableRow {
-    parentValues: Record<string, string>
-    probabilities: number
-}
-
 export class ProbabilityTable {
-    nodeValues: string[]
-    rows: ProbabilityTableRow[]
+    nodeValues: Record<string, string>
+    rows: Record<string, Record<string, number>>
 }
 
 export class BayesNodeData {
@@ -33,8 +28,8 @@ export const exampleNetwork: () => BayesNetworkData = () => {
                 positionY: 400,
                 name: "Intelligence",
                 table:  {
-                    nodeValues: ["High", "High"],
-                    rows: [],
+                    nodeValues: {"0": "High", "1": "Low"},
+                    rows: {},
                 },
             },
             "node1": {
@@ -42,8 +37,8 @@ export const exampleNetwork: () => BayesNetworkData = () => {
                 positionY: 400,
                 name: "Difficulty",
                 table:  {
-                    nodeValues: ["Difficult", "Easy"],
-                    rows: [],
+                    nodeValues: {"0": "Difficult", "1": "Easy"},
+                    rows: {},
                 },
             },
             "node2": {
@@ -51,8 +46,8 @@ export const exampleNetwork: () => BayesNetworkData = () => {
                 positionY: 800,
                 name: "Grade",
                 table:  {
-                    nodeValues: ["A", "B", "C"],
-                    rows: [],
+                    nodeValues: {"0": "A", "1": "D"},
+                    rows: {},
                 },
             },
         },
@@ -79,4 +74,8 @@ export const existsConnection = (network: BayesNetworkData, from: string, to: st
         }
     }
     return false;
+}
+
+export const getDependencies = (network: BayesNetworkData, nodeName: string) => {
+
 }

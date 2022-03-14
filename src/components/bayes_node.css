@@ -3,7 +3,7 @@
     width: 15em;
     height: 5em;
     border-radius: 0.5em;
-    padding: 1em;
+    padding: 0.5em;
     position: absolute;
     transform: translate(-50%, -50%);
 }
@@ -16,5 +16,5 @@
     background-color: white;
     border: none;
     border-radius: 1em;
-    padding: 1em;
+    padding: 0.5em;
 }
