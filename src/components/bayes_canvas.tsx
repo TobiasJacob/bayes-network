@@ -11,6 +11,7 @@ const BayesCanvas = () => {
     const [tempConnection, setTempConnection] = useState<TempConnection | undefined>();
 
     const addNode = () => {
+        console.log("add")
         var key = "node" + (Object.keys(network.nodes).length + 1);
         setNetwork({
             ...network,
@@ -19,6 +20,11 @@ const BayesCanvas = () => {
                 [key]: {
                     positionX: 200,
                     positionY: 200,
+                    name: "Node",
+                    table: {
+                        nodeValues: ["A"],
+                        rows: [ {parentValues: {}, probabilities: 1.0} ]
+                    }
                 }
             }
         })
@@ -37,6 +43,7 @@ const BayesCanvas = () => {
         ev.preventDefault();
         if (tempConnection) {
             for (const key in network.nodes) {
+                if (key === tempConnection.from) continue;
                 if (Object.prototype.hasOwnProperty.call(network.nodes, key)) {
                     const bNode = network.nodes[key];
                     if (Math.abs(bNode.positionX - tempConnection.toX) < 80 && Math.abs(bNode.positionY - tempConnection.toY) < 80) {
@@ -61,13 +68,13 @@ const BayesCanvas = () => {
     }
 
     return <div className='BayesCanvas' onMouseMove={mouseMove} onMouseUp={mouseUp}>
-        <button className='AddButton' onClick={addNode}>AddButton</button>
         <BayesConnectionRenderer network={network} setNetwork={setNetwork} tempConnection={tempConnection} />
         {
             Object.keys(network.nodes).map((key) => {
                 return <BayesNode key={key} nodeName={key} network={network} setNetwork={setNetwork} setTempConnection={setTempConnection}/>
             })
         }
+        <button className='AddButton' onClick={addNode}>AddButton</button>
     </div>
 }
 

@@ -3,6 +3,7 @@ import { BayesNetworkData } from '../data/bayes_network';
 import { TempConnection } from './bayes_connection_renderer';
 
 import './bayes_node.css';
+import BayesNodeCore from './bayes_node_core';
 
 export class NodeProps {
     nodeName: string
@@ -16,11 +17,9 @@ const BayesNode = ({nodeName, network, setNetwork, setTempConnection}: NodeProps
     const bNode = network.nodes[nodeName];
 
     const mouseDown = (ev: React.MouseEvent<HTMLDivElement>) => {
-        ev.preventDefault();
         setDragged(true);
     }
     const mouseMove = (ev: React.MouseEvent<HTMLDivElement>) => {
-        ev.preventDefault();
         if (ev.buttons != 1) {
             setDragged(false);
         } else if (dragged) {
@@ -29,6 +28,7 @@ const BayesNode = ({nodeName, network, setNetwork, setTempConnection}: NodeProps
                 nodes: {
                     ...network.nodes,
                     [nodeName]: {
+                        ...network.nodes[nodeName],
                         positionX: bNode.positionX + ev.movementX,
                         positionY: bNode.positionY + ev.movementY,
                     }
@@ -37,11 +37,9 @@ const BayesNode = ({nodeName, network, setNetwork, setTempConnection}: NodeProps
         }
     }
     const mouseUp = (ev: React.MouseEvent<HTMLDivElement>) => {
-        ev.preventDefault();
         setDragged(false);
     }
     const startConnect = (ev: React.MouseEvent<HTMLButtonElement>) => {
-        ev.preventDefault();
         ev.stopPropagation();
         setTempConnection({
             from: nodeName,
@@ -54,7 +52,7 @@ const BayesNode = ({nodeName, network, setNetwork, setTempConnection}: NodeProps
         top: bNode.positionY,
         left: bNode.positionX
     }} onMouseDown={mouseDown} onMouseMove={mouseMove} onMouseUp={mouseUp}>
-        Bayes node
+        <BayesNodeCore nodeName={nodeName} network={network} setNetwork={setNetwork} />
         <button className='ConnectButton' onMouseDown={startConnect}>Connect</button>
     </div>
 }

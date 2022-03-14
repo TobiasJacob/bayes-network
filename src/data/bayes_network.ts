@@ -1,7 +1,18 @@
+export class ProbabilityTableRow {
+    parentValues: Record<string, string>
+    probabilities: number
+}
+
+export class ProbabilityTable {
+    nodeValues: string[]
+    rows: ProbabilityTableRow[]
+}
 
 export class BayesNodeData {
     positionX: number
     positionY: number
+    name: string
+    table: ProbabilityTable
 }
 
 export class Connection {
@@ -20,21 +31,40 @@ export const exampleNetwork: () => BayesNetworkData = () => {
             "node0": {
                 positionX: 200,
                 positionY: 400,
+                name: "Intelligence",
+                table:  {
+                    nodeValues: ["High", "High"],
+                    rows: [],
+                },
             },
             "node1": {
-                positionX: 200,
-                positionY: 800,
+                positionX: 600,
+                positionY: 400,
+                name: "Difficulty",
+                table:  {
+                    nodeValues: ["Difficult", "Easy"],
+                    rows: [],
+                },
             },
             "node2": {
-                positionX: 600,
+                positionX: 400,
                 positionY: 800,
+                name: "Grade",
+                table:  {
+                    nodeValues: ["A", "B", "C"],
+                    rows: [],
+                },
             },
         },
         connections: {
             "con0": {
                 from: "node0",
-                to: "node1",
-            }
+                to: "node2",
+            },
+            "con1": {
+                from: "node1",
+                to: "node2",
+            },
         }
     }
 }
