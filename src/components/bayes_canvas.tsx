@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import BayesNode from './bayes_node';
 import { existsConnection } from '../data/bayes_network';
 import BayesConnectionRenderer, { TempConnection } from './bayes_connection_renderer';
-import { exampleNetwork } from '../data/example1';
+import { exampleNetwork } from '../data/load_example';
 
 import './bayes_canvas.css';
 import { loadNetwork, saveNetwork } from '../data/save_network';
 
-const exampe = exampleNetwork();
+const exampe = exampleNetwork('Ex1');
 
 const BayesCanvas = () => {
     const [network, setNetwork] = useState(exampe);
