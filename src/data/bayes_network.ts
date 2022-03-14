@@ -109,10 +109,10 @@ const generatePossibleValues = (network: BayesNetworkData, parentIDs: string[], 
 
 export const getConditionCombinations = (network: BayesNetworkData, nodeName: string) => {
     const parentKeys = getParents(network, nodeName);
-    console.log(parentKeys);
+    // console.log(parentKeys);
     
     const result = generatePossibleValues(network, parentKeys, 0);
-    console.log(result);
+    // console.log(result);
     return result;
 }
 

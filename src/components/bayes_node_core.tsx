@@ -30,16 +30,28 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
     }
     const changeValue = (valKey: string, ev: ChangeEvent<HTMLInputElement>) => {
         ev.preventDefault()
-        setNode({
-            ...bNode,
-            table: {
-                ...bNode.table,
-                nodeValues: {
-                    ...bNode.table.nodeValues,
-                    [valKey]: ev.target.value
+        const lastCol = "val" + (Object.keys(bNode.table.nodeValues).length - 1);
+        if (ev.target.value == "" && valKey === lastCol) {
+            const {[lastCol]: _, ...nodeValues} = bNode.table.nodeValues;
+            setNode({
+                ...bNode,
+                table: {
+                    ...bNode.table,
+                    nodeValues
                 }
-            }
-        })
+            })
+        } else {
+            setNode({
+                ...bNode,
+                table: {
+                    ...bNode.table,
+                    nodeValues: {
+                        ...bNode.table.nodeValues,
+                        [valKey]: ev.target.value
+                    }
+                }
+            })
+        }
     }
     const newValKey = "val" + Object.keys(bNode.table.nodeValues).length;
     const createNewValue = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +85,7 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
         
     }
     const conditions = getConditionCombinations(network, nodeName);
-    console.log(network.nodes[nodeName].table.rows);
+    // console.log(network.nodes[nodeName].table.rows);
 
     return <div className='BayesNodeCore'>
         <input type="text" value={bNode.name} onChange={setName}/>
