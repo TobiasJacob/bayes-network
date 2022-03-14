@@ -38,3 +38,15 @@ export const exampleNetwork: () => BayesNetworkData = () => {
         }
     }
 }
+
+export const existsConnection = (network: BayesNetworkData, from: string, to: string) => {
+    for (const key in network.connections) {
+        if (Object.prototype.hasOwnProperty.call(network.connections, key)) {
+            const conn = network.connections[key];
+            if (conn.from == from && conn.to == to) {
+                return true;
+            }
+        }
+    }
+    return false;
+}

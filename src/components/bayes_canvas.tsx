@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import BayesNode from './bayes_node';
-import { exampleNetwork } from '../data/bayes_network';
+import { exampleNetwork, existsConnection } from '../data/bayes_network';
 import BayesConnectionRenderer, { TempConnection } from './bayes_connection_renderer';
 
 import './bayes_canvas.css';
@@ -41,6 +41,7 @@ const BayesCanvas = () => {
                     const bNode = network.nodes[key];
                     if (Math.abs(bNode.positionX - tempConnection.toX) < 80 && Math.abs(bNode.positionY - tempConnection.toY) < 80) {
                         const connKey = "conn" + (Object.keys(network.connections).length + 1);
+                        if (existsConnection(network, tempConnection.from, key)) continue;
                         setNetwork({
                             ...network,
                             connections: {
