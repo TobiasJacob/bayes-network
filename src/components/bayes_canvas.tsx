@@ -35,7 +35,28 @@ const BayesCanvas = () => {
     }
     const mouseUp = (ev: React.MouseEvent<HTMLDivElement>) => {
         ev.preventDefault();
-        setTempConnection(undefined);
+        if (tempConnection) {
+            for (const key in network.nodes) {
+                if (Object.prototype.hasOwnProperty.call(network.nodes, key)) {
+                    const bNode = network.nodes[key];
+                    if (Math.abs(bNode.positionX - tempConnection.toX) < 80 && Math.abs(bNode.positionY - tempConnection.toY) < 80) {
+                        const connKey = "conn" + (Object.keys(network.connections).length + 1);
+                        setNetwork({
+                            ...network,
+                            connections: {
+                                ...network.connections,
+                                [connKey]: {
+                                    from: tempConnection.from,
+                                    to: key,
+                                }
+                            }
+                        })
+                        break;
+                    }
+                }
+            }
+            setTempConnection(undefined);
+        }
     }
 
     return <div className='BayesCanvas' onMouseMove={mouseMove} onMouseUp={mouseUp}>
