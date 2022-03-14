@@ -16,8 +16,19 @@ const BayesCanvas = () => {
         }
     });
 
+    const addNode = () => {
+        var key = "node" + Object.keys(nodes).length;
+        setNodes({
+            ...nodes,
+            [key]: {
+                positionX: 200,
+                positionY: 200,
+            }
+        })
+    }
+
     return <div className='BayesCanvas'>
-        Bayes canvas
+        <button className='AddButton' onClick={addNode}>AddButton</button>
         {
             Object.entries(nodes).map(([key, bNode]) => {
                 return <BayesNode key={key} positionX={bNode.positionX} positionY={bNode.positionY} setPosition={
