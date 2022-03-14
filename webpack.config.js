@@ -18,8 +18,9 @@ module.exports = {
   },
   devServer: {
     static: './dist',
-   hot: true,
+    hot: true,
   },
+  devtool: 'eval-source-map',
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },

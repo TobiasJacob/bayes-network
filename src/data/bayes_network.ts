@@ -1,5 +1,6 @@
 export class ProbabilityTable {
     nodeValues: Record<string, string>
+    nodeProbabilities: Record<string, number>
     rows: Record<string, Record<string, string>>
 }
 
@@ -18,50 +19,6 @@ export class Connection {
 export class BayesNetworkData {
     nodes: Record<string, BayesNodeData>
     connections: Record<string, Connection>
-}
-
-export const exampleNetwork: () => BayesNetworkData = () => {
-    return {
-        nodes: {
-            "node0": {
-                positionX: 200,
-                positionY: 400,
-                name: "Intelligence",
-                table:  {
-                    nodeValues: {"0": "High", "1": "Low"},
-                    rows: {},
-                },
-            },
-            "node1": {
-                positionX: 600,
-                positionY: 400,
-                name: "Difficulty",
-                table:  {
-                    nodeValues: {"0": "Difficult", "1": "Easy"},
-                    rows: {},
-                },
-            },
-            "node2": {
-                positionX: 400,
-                positionY: 800,
-                name: "Grade",
-                table:  {
-                    nodeValues: {"0": "A", "1": "D"},
-                    rows: {},
-                },
-            },
-        },
-        connections: {
-            "con0": {
-                from: "node0",
-                to: "node2",
-            },
-            "con1": {
-                from: "node1",
-                to: "node2",
-            },
-        }
-    }
 }
 
 export const existsConnection = (network: BayesNetworkData, from: string, to: string) => {
@@ -88,7 +45,7 @@ export const getParents = (network: BayesNetworkData, nodeName: string) => {
     })
 }
 
-const generatePossibleValues = (network: BayesNetworkData, parentIDs: string[], index: number) => {
+export const generatePossibleValues = (network: BayesNetworkData, parentIDs: string[], index: number) => {
     if (index >= Object.keys(parentIDs).length) return [{}];
     const nodeName = parentIDs[index];
 
@@ -118,7 +75,9 @@ export const getConditionCombinations = (network: BayesNetworkData, nodeName: st
 
 export const hashCondition = (cond: Record<string, string>) => {
     let res = "";
-    Object.entries(cond).forEach(([k, v]) => {
+    const keys = Object.entries(cond);
+    keys.sort();
+    keys.forEach(([k, v]) => {
         res += k + "=" + v + ",";
     })
     return res;

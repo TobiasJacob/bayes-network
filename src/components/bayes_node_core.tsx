@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { BayesNetworkData, BayesNodeData, getConditionCombinations, hashCondition } from '../data/bayes_network';
+import { simulateNetwork } from '../data/simulate_network';
 import { TempConnection } from './bayes_connection_renderer';
 
 import './bayes_node_core.css';
@@ -12,14 +13,19 @@ export class NodeProps {
 
 const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
     const bNode = network.nodes[nodeName];
-    const setNode = (newNode: BayesNodeData) => {
-        setNetwork({
+    const setNode = (newNode: BayesNodeData, simulate = false) => {
+        let newNetwork = {
             ...network,
             nodes: {
                 ...network.nodes,
                 [nodeName]: newNode
             }
-        })
+        };
+        if (simulate) {
+            newNetwork = simulateNetwork(newNetwork);
+        } 
+        setNetwork(newNetwork);
+        
     }
 
     const setName = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +45,7 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                     ...bNode.table,
                     nodeValues
                 }
-            })
+            }, true)
         } else {
             setNode({
                 ...bNode,
@@ -50,7 +56,7 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                         [valKey]: ev.target.value
                     }
                 }
-            })
+            }, true)
         }
     }
     const newValKey = "val" + Object.keys(bNode.table.nodeValues).length;
@@ -65,7 +71,7 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                     [newValKey]: ev.target.value
                 }
             }
-        })
+        }, true)
     }
     const changeRowData = (condKey: string, valKey: string, ev: ChangeEvent<HTMLInputElement>) => {
         ev.preventDefault()
@@ -81,7 +87,7 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                     }
                 }
             }
-        })
+        }, true)
         
     }
     const conditions = getConditionCombinations(network, nodeName);
@@ -112,7 +118,7 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                     conditions.map((cond) => {
                         const condKey = hashCondition(cond);
                         const rowData: Record<string, string> = network.nodes[nodeName].table.rows[condKey] || {};
-                        return <tr>
+                        return <tr key={hashCondition(cond)}>
                             {...Object.entries(cond).map(([nodeKey, nodeVal]) => {
                                 return <td key={nodeKey}>
                                     {network.nodes[nodeKey].table.nodeValues[nodeVal]}

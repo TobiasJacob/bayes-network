@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import BayesNode from './bayes_node';
-import { exampleNetwork, existsConnection } from '../data/bayes_network';
+import { existsConnection } from '../data/bayes_network';
 import BayesConnectionRenderer, { TempConnection } from './bayes_connection_renderer';
+import { exampleNetwork } from '../data/example1';
 
 import './bayes_canvas.css';
 
+const exampe = exampleNetwork();
 
 const BayesCanvas = () => {
-    const [network, setNetwork] = useState(exampleNetwork());
+    const [network, setNetwork] = useState(exampe);
     const [tempConnection, setTempConnection] = useState<TempConnection | undefined>();
 
     const addNode = () => {
@@ -22,8 +24,9 @@ const BayesCanvas = () => {
                     positionY: 200,
                     name: "Node",
                     table: {
-                        nodeValues: {"val0": "A"},
-                        rows: {"": {"val0": "1.0"} }
+                    nodeValues: {"val0": "A"},
+                    nodeProbabilities: {"val0": parseFloat('Nan')},
+                    rows: {"": {"val0": "1.0"} }
                     }
                 }
             }
