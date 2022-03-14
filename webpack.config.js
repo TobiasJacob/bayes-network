@@ -17,7 +17,6 @@ module.exports = {
     ],
   },
   devServer: {
-    static: './dist',
     hot: true,
   },
   devtool: process.env.SOURCE_MAP ? 'inline-source-map' : 'hidden-source-map',
@@ -31,6 +30,6 @@ module.exports = {
   ],
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'docs'),
   },
 };
