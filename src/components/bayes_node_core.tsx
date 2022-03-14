@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import { BayesNetworkData, BayesNodeData, getValueCombinations } from '../data/bayes_network';
 import { TempConnection } from './bayes_connection_renderer';
 
-import './bayes_node.css';
+import './bayes_node_core.css';
 
 export class NodeProps {
     nodeName: string
@@ -58,25 +58,41 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
 
     const rows = getValueCombinations(network, nodeName);
 
-    return <div>
+    return <div className='BayesNodeCore'>
         <input type="text" value={bNode.name} onChange={setName}/>
         <table>
             <thead>
                 <tr>
+                    {...Object.entries(rows[0]).map(([nodeKey, _]) => {
+                        return <td key={nodeKey}>
+                            {network.nodes[nodeKey].name}
+                        </td>
+                    })}
                     {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
                         return <td key={key}>
-                            <input type="text" value={val} onChange={(ev) => changeValue(key, ev)}/>
+                            <input type="text" value={val} onChange={(ev) => changeValue(key, ev)} className="ProbTabInput"/>
                         </td>
                     })}
                     <td key={newValKey}>
-                        <input type="text" value="" onChange={(ev) => createNewValue(ev)}/>
+                        <input type="text" value="" onChange={(ev) => createNewValue(ev)} className="ProbTabInput"/>
                     </td>
                 </tr>
             </thead>
             <tbody>
                 {
                     rows.map((row) => {
-                        row
+                        return <tr>
+                            {...Object.entries(row).map(([nodeKey, nodeVal]) => {
+                                return <td key={nodeKey}>
+                                    {network.nodes[nodeKey].table.nodeValues[nodeVal]}
+                                </td>
+                            })}
+                            {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
+                                return <td key={key}>
+                                    <input type="text" value={val} onChange={(ev) => changeValue(key, ev)} className="ProbTabInput"/>
+                                </td>
+                            })}
+                        </tr>
                     })
                 }
             </tbody>
