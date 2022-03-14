@@ -77,7 +77,7 @@ const BayesCanvas = () => {
                 return <BayesNode key={key} nodeName={key} network={network} setNetwork={setNetwork} setTempConnection={setTempConnection}/>
             })
         }
-        <button className='AddButton' onClick={addNode}>AddButton</button>
+        <button className='AddButton' onClick={addNode}>Add Node</button>
     </div>
 }
 

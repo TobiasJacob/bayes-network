@@ -1,10 +1,12 @@
 .BayesNode {
-    background-color: rgb(238, 238, 238);
+    color: rgb(223, 223, 223);
+    background-color: rgb(46, 46, 46);
     border-radius: 0.5em;
-    padding: 0.5em 0.5em 1.5em 0.5em;
+    padding: 0.5em 0.5em 2.0em 0.5em;
     position: absolute;
     transform: translate(-50%, -50%);
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-sizing: border-box;
 }
 
 .ConnectButton {

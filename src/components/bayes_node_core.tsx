@@ -104,13 +104,13 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
     // console.log(network.nodes[nodeName].table.rows);
 
     return <div className='BayesNodeCore'>
-        <input type="text" value={bNode.name} onChange={setName}/>
+        <input type="text" value={bNode.name} onChange={setName} className="mb-3 w-100"/>
         <table>
             <thead>
                 <tr>
                     {...Object.entries(conditions[0]).map(([nodeKey, _]) => {
                         return <td key={nodeKey}>
-                            {network.nodes[nodeKey].name}
+                            <span>{network.nodes[nodeKey].name}</span>
                         </td>
                     })}
                     {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
@@ -131,7 +131,7 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                         return <tr key={hashCondition(cond)}>
                             {...Object.entries(cond).map(([nodeKey, nodeVal]) => {
                                 return <td key={nodeKey}>
-                                    {network.nodes[nodeKey].table.nodeValues[nodeVal]}
+                                    <span>{network.nodes[nodeKey].table.nodeValues[nodeVal]}</span>
                                 </td>
                             })}
                             {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
@@ -148,12 +148,12 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                         return <td key={nodeKey} />
                     })}
                     {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
-                        return <td key={key}>
-                            <input type="radio" name={nodeName} onChange={selectValue} value={key} checked={bNode.selectedValue === key}/>
+                        return <td key={key} className='center'>
+                            <input type="radio" name={nodeName} onChange={selectValue} value={key} checked={bNode.selectedValue === key} className="radio"/>
                         </td>
                     })}
-                    <td>
-                        <input type="radio" name={nodeName} onChange={selectValue} value="" checked={!bNode.selectedValue}/>
+                    <td className='center'>
+                        <input type="radio" name={nodeName} onChange={selectValue} value="" checked={!bNode.selectedValue}  className="radio"/>
                     </td>
                 </tr>
                 <tr>
@@ -161,8 +161,8 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                         return <td key={nodeKey} />
                     })}
                     {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
-                        return <td key={key}>
-                            {bNode.table.nodeProbabilities[key].toFixed(2)}
+                        return <td key={key} className='center'>
+                            <span>{bNode.table.nodeProbabilities[key].toFixed(2)}</span>
                         </td>
                     })}
                     <td />

@@ -22,10 +22,14 @@ const BayesConnectionRenderer = ({network, setNetwork, tempConnection}: BayesCon
     });
 
     const getTopY = (nodeName: string) => {
-        return network.nodes[nodeName].positionY - 85 - 12 * rowCount[nodeName];
+        return network.nodes[nodeName].positionY - 105 - 12 * rowCount[nodeName];
+    }
+    const getTopX = (nodeName: string, fromNode: string) => {
+        const delta = network.nodes[fromNode].positionX - network.nodes[nodeName].positionX;
+        return network.nodes[nodeName].positionX + 0.1 * delta;
     }
     const getBottomY = (nodeName: string) => {
-        return network.nodes[nodeName].positionY + 85 + 12 * rowCount[nodeName];
+        return network.nodes[nodeName].positionY + 92 + 12 * rowCount[nodeName];
     }
 
     return <div className='AbsPosFullSize'>
@@ -45,7 +49,7 @@ const BayesConnectionRenderer = ({network, setNetwork, tempConnection}: BayesCon
                                 key={to + from}
                                 x1={network.nodes[from].positionX}
                                 y1={getBottomY(from)}
-                                x2={network.nodes[to].positionX}
+                                x2={getTopX(to, from)}
                                 y2={getTopY(to)}
                                 stroke="white"
                                 strokeWidth="0.2em"
@@ -72,7 +76,7 @@ const BayesConnectionRenderer = ({network, setNetwork, tempConnection}: BayesCon
         {
             Object.keys(network.nodes).map((to) => {
                 return network.nodes[to].parents.map((from) => {
-                    const buttonX = (network.nodes[from].positionX + network.nodes[to].positionX) / 2;
+                    const buttonX = (network.nodes[from].positionX + getTopX(to, from)) / 2;
                     const buttonY = (getBottomY(from) + getTopY(to)) / 2;
                     return (
                         <button
