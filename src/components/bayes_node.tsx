@@ -17,10 +17,11 @@ const BayesNode = ({nodeName, network, setNetwork, setTempConnection}: NodeProps
     const bNode = network.nodes[nodeName];
 
     const mouseDown = (ev: React.MouseEvent<HTMLDivElement>) => {
+        if ((ev.target as any)?.tagName === "INPUT") return;
         setDragged(true);
     }
     const mouseMove = (ev: React.MouseEvent<HTMLDivElement>) => {
-        if (ev.buttons != 1) {
+        if (ev.buttons != 1 && dragged) {
             setDragged(false);
         } else if (dragged) {
             setNetwork({

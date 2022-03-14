@@ -35,7 +35,6 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
         })
     }
     const changeValue = (valKey: string, ev: ChangeEvent<HTMLInputElement>) => {
-        ev.preventDefault()
         const lastCol = "val" + (Object.keys(bNode.table.nodeValues).length - 1);
         if (ev.target.value == "" && valKey === lastCol) {
             const {[lastCol]: _, ...nodeValues} = bNode.table.nodeValues;
@@ -61,7 +60,6 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
     }
     const newValKey = "val" + Object.keys(bNode.table.nodeValues).length;
     const createNewValue = (ev: ChangeEvent<HTMLInputElement>) => {
-        ev.preventDefault()
         setNode({
             ...bNode,
             table: {
@@ -74,7 +72,6 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
         }, true)
     }
     const changeRowData = (condKey: string, valKey: string, ev: ChangeEvent<HTMLInputElement>) => {
-        ev.preventDefault()
         setNode({
             ...bNode,
             table: {
@@ -128,18 +125,25 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                     conditions.map((cond) => {
                         const condKey = hashCondition(cond);
                         const rowData: Record<string, string> = network.nodes[nodeName].table.rows[condKey] || {};
+                        let probabilitySum = 0;
+                        Object.keys(bNode.table.nodeValues).map((key) => {
+                            probabilitySum += parseFloat(rowData[key]);
+                        })
+
                         return <tr key={hashCondition(cond)}>
                             {...Object.entries(cond).map(([nodeKey, nodeVal]) => {
                                 return <td key={nodeKey}>
                                     <span>{network.nodes[nodeKey].table.nodeValues[nodeVal]}</span>
                                 </td>
                             })}
-                            {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
+                            {...Object.keys(bNode.table.nodeValues).map((key) => {
                                 return <td key={key}>
                                     <input type="text" value={rowData[key] || ""} onChange={(ev) => changeRowData(condKey, key, ev)} className="ProbTabInput"/>
                                 </td>
                             })}
-                            <td />
+                            <td>
+                                <span>{probabilitySum.toFixed(2)}</span>
+                            </td>
                         </tr>
                     })
                 }
