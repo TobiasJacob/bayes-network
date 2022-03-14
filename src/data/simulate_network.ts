@@ -3,39 +3,40 @@ import { BayesNetworkData, generatePossibleValues, getParents, hashCondition } f
 export const simulateNetwork = (network: BayesNetworkData) => {
     const nodeKeys = Object.keys(network.nodes);
     const possibleNetworkStates = generatePossibleValues(network, nodeKeys, 0);
-    console.log(possibleNetworkStates);
-    console.log(network);
 
     const probabilities: Record<string, number> = {}
     possibleNetworkStates.forEach((networkState) => {
-        console.log(networkState);
-        let result = 1.0;
+        // Iterate over each possible network configuration
+        let result = 1.0; // The total probability of the network configuration
         nodeKeys.forEach((nodeName) => {
             const node = network.nodes[nodeName];
             const parentKeys = getParents(network, nodeName);
-            const relevantValues: Record<string, string> = {};
+            // Find the corresponding probabilitiy value using the relevant conditional probabilities and the node value
+            const relevantValues: Record<string, string> = {}; // The conditions that apply for this probability
             parentKeys.forEach((nodeValKey) => {
                 relevantValues[nodeValKey] = networkState[nodeValKey];
             })
             const hash = hashCondition(relevantValues);
-            const nodeValue = networkState[nodeName];
+            const nodeValue = networkState[nodeName]; // The value of the node
             const valAsStr = (node.table.rows[hash] || {})[nodeValue] || "";
-            console.log(node.name, hash, (node.table.rows[hash] || {})[nodeValue]);
+            // Multiply the total probability with this factor
             result *= parseFloat(valAsStr);
         });
         probabilities[hashCondition(networkState)] = result;
     });
-
+    
+    nodeKeys.forEach((nodeName) => {
+        const node = network.nodes[nodeName];
+        Object.keys(node.table.nodeValues).forEach((nodeVal) => {
+            // Calculate probability of a certain value nodeValKey within a node nodeName
+            let totalProbability = 0;
+            possibleNetworkStates.forEach((networkState) => {
+                if (networkState[nodeName] === nodeVal) {
+                    totalProbability += probabilities[hashCondition(networkState)];
+                }
+            })
+            network.nodes[nodeName].table.nodeProbabilities[nodeVal] = totalProbability;
+        })
+    })
     return network;
-
-    console.log(probabilities);
-    // nodeKeys.forEach((nodeName) => {
-    //     const node = network.nodes[nodeName];
-    //     const relevantValues: Record<string, string> = {};
-    //     Object.keys(node.table.nodeValues).forEach((nodeValKey) => {
-    //         relevantValues[nodeValKey] = networkState[nodeValKey];
-    //     })
-    //     const nodeValue = networkState[nodeName];
-
-    // })
 }

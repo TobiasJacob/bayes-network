@@ -129,9 +129,21 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                                     <input type="text" value={rowData[key] || ""} onChange={(ev) => changeRowData(condKey, key, ev)} className="ProbTabInput"/>
                                 </td>
                             })}
+                            <td />
                         </tr>
                     })
                 }
+                <tr>
+                    {...Object.entries(conditions[0]).map(([nodeKey, _]) => {
+                        return <td />
+                    })}
+                    {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
+                        return <td key={key}>
+                            {bNode.table.nodeProbabilities[key]}
+                        </td>
+                    })}
+                    <td />
+                </tr>
             </tbody>
         </table>
     </div>
