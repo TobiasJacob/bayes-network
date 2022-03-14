@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './bayes_node.css'
+import './bayes_node.css';
 
 class NodeProps {
     positionX: number
