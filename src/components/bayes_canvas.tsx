@@ -5,7 +5,7 @@ import BayesConnectionRenderer, { TempConnection } from './bayes_connection_rend
 import { exampleNetwork } from '../data/example1';
 
 import './bayes_canvas.css';
-import { saveNetwork } from '../data/save_network';
+import { loadNetwork, saveNetwork } from '../data/save_network';
 
 const exampe = exampleNetwork();
 
@@ -79,8 +79,16 @@ const BayesCanvas = () => {
             })
         }
         <div className='CanvasButtons'>
-            <button onClick={addNode}>Add Node</button><br />
+            <button onClick={addNode}>Add Node</button> <br />
             <button onClick={() => saveNetwork(network)}>Download</button>
+            <label htmlFor="file-input" className="fileInputLabel">
+                Open
+            </label>
+            <input type="file" id="file-input" className='fileInput' onChange={async (ev) => { await loadNetwork(ev, setNetwork) }} value=""/> <br />
+            <button>Example 1</button>
+            <button>Example 2</button>
+            <button>Example 3</button>
+
         </div>
     </div>
 }

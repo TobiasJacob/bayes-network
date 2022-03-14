@@ -98,7 +98,7 @@ const BayesConnectionRenderer = ({network, setNetwork, tempConnection}: BayesCon
                                     }
                                 })
                             }}
-                        >Remove</button>
+                        >-</button>
                     );
                 });
             })
