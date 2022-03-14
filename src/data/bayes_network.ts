@@ -1,6 +1,6 @@
 export class ProbabilityTable {
     nodeValues: Record<string, string>
-    rows: Record<string, Record<string, number>>
+    rows: Record<string, Record<string, string>>
 }
 
 export class BayesNodeData {
@@ -107,11 +107,19 @@ const generatePossibleValues = (network: BayesNetworkData, parentIDs: string[], 
     return result;
 }
 
-export const getValueCombinations = (network: BayesNetworkData, nodeName: string) => {
+export const getConditionCombinations = (network: BayesNetworkData, nodeName: string) => {
     const parentKeys = getParents(network, nodeName);
     console.log(parentKeys);
     
     const result = generatePossibleValues(network, parentKeys, 0);
     console.log(result);
     return result;
+}
+
+export const hashCondition = (cond: Record<string, string>) => {
+    let res = "";
+    Object.entries(cond).forEach(([k, v]) => {
+        res += k + "=" + v + ",";
+    })
+    return res;
 }

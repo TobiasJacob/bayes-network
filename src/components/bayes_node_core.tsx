@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import { BayesNetworkData, BayesNodeData, getValueCombinations } from '../data/bayes_network';
+import { BayesNetworkData, BayesNodeData, getConditionCombinations, hashCondition } from '../data/bayes_network';
 import { TempConnection } from './bayes_connection_renderer';
 
 import './bayes_node_core.css';
@@ -55,15 +55,32 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
             }
         })
     }
-
-    const rows = getValueCombinations(network, nodeName);
+    const changeRowData = (condKey: string, valKey: string, ev: ChangeEvent<HTMLInputElement>) => {
+        ev.preventDefault()
+        setNode({
+            ...bNode,
+            table: {
+                ...bNode.table,
+                rows: {
+                    ...bNode.table.rows,
+                    [condKey]: {
+                        ...bNode.table.rows[condKey],
+                        [valKey]: ev.target.value
+                    }
+                }
+            }
+        })
+        
+    }
+    const conditions = getConditionCombinations(network, nodeName);
+    console.log(network.nodes[nodeName].table.rows);
 
     return <div className='BayesNodeCore'>
         <input type="text" value={bNode.name} onChange={setName}/>
         <table>
             <thead>
                 <tr>
-                    {...Object.entries(rows[0]).map(([nodeKey, _]) => {
+                    {...Object.entries(conditions[0]).map(([nodeKey, _]) => {
                         return <td key={nodeKey}>
                             {network.nodes[nodeKey].name}
                         </td>
@@ -80,16 +97,18 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
             </thead>
             <tbody>
                 {
-                    rows.map((row) => {
+                    conditions.map((cond) => {
+                        const condKey = hashCondition(cond);
+                        const rowData: Record<string, string> = network.nodes[nodeName].table.rows[condKey] || {};
                         return <tr>
-                            {...Object.entries(row).map(([nodeKey, nodeVal]) => {
+                            {...Object.entries(cond).map(([nodeKey, nodeVal]) => {
                                 return <td key={nodeKey}>
                                     {network.nodes[nodeKey].table.nodeValues[nodeVal]}
                                 </td>
                             })}
                             {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
                                 return <td key={key}>
-                                    <input type="text" value={val} onChange={(ev) => changeValue(key, ev)} className="ProbTabInput"/>
+                                    <input type="text" value={rowData[key] || ""} onChange={(ev) => changeRowData(condKey, key, ev)} className="ProbTabInput"/>
                                 </td>
                             })}
                         </tr>

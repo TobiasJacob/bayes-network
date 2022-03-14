@@ -23,7 +23,7 @@ const BayesCanvas = () => {
                     name: "Node",
                     table: {
                         nodeValues: {"val0": "A"},
-                        rows: {"": {"val0": 1.0} }
+                        rows: {"": {"val0": "1.0"} }
                     }
                 }
             }
