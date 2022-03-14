@@ -8,7 +8,6 @@ class BayesConnectionRendererProps {
     setNetwork: (newNetwork: BayesNetworkData) => void
 };
 
-
 const BayesConnectionRenderer = ({network, setNetwork}: BayesConnectionRendererProps) => {
     return <div className='AbsPosFullSize'>
         <svg className='AbsPosFullSize'>
@@ -21,15 +20,15 @@ const BayesConnectionRenderer = ({network, setNetwork}: BayesConnectionRendererP
             </defs>
             {
                 Object.entries(network.connections).map(([key, conn]) => {
-                    const startX = network.nodes[conn.from].positionX;
                     return (
                         <line
+                            key={key}
                             x1={network.nodes[conn.from].positionX}
                             y1={network.nodes[conn.from].positionY + 80}
                             x2={network.nodes[conn.to].positionX}
                             y2={network.nodes[conn.to].positionY - 80}
                             stroke="black"
-                            stroke-width="6px"
+                            strokeWidth="6px"
                             markerEnd='url(#arrow)'
                         />
                     );
@@ -42,6 +41,7 @@ const BayesConnectionRenderer = ({network, setNetwork}: BayesConnectionRendererP
                 const buttonY = (network.nodes[conn.from].positionY + network.nodes[conn.to].positionY) / 2;
                 return (
                     <button
+                        key={key}
                         className='RemoveButton'
                         style={{
                             top: buttonY,
