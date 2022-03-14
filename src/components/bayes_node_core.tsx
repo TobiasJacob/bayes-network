@@ -12,8 +12,15 @@ export class NodeProps {
 }
 
 const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
+    /**
+     * Visualizes a single bayes node, in particular the name, the probability table, and the observation selector.
+     */
+
     const bNode = network.nodes[nodeName];
     const setNode = (newNode: BayesNodeData, simulate = false) => {
+        /**
+         * Helper function to update the Node this UI Component is referring to.
+         */
         let newNetwork = {
             ...network,
             nodes: {
@@ -29,12 +36,18 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
     }
 
     const setName = (ev: ChangeEvent<HTMLInputElement>) => {
+        /**
+         * Sets the name of the node.
+         */
         setNode({
             ...bNode,
             name: ev.target.value
         })
     }
     const changeValue = (valKey: string, ev: ChangeEvent<HTMLInputElement>) => {
+        /**
+         * Updates the name of a specific value of a BayesNode.
+         */
         const lastCol = "val" + (Object.keys(bNode.table.nodeValues).length - 1);
         if (ev.target.value == "" && valKey === lastCol) {
             const {[lastCol]: _, ...nodeValues} = bNode.table.nodeValues;
@@ -60,6 +73,9 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
     }
     const newValKey = "val" + Object.keys(bNode.table.nodeValues).length;
     const createNewValue = (ev: ChangeEvent<HTMLInputElement>) => {
+        /**
+         * Adds a new value to the BayesNode.
+         */
         setNode({
             ...bNode,
             table: {
@@ -72,6 +88,9 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
         }, true)
     }
     const changeRowData = (condKey: string, valKey: string, ev: ChangeEvent<HTMLInputElement>) => {
+        /**
+         * Updates the probability of a value under a given condition.
+         */
         setNode({
             ...bNode,
             table: {
@@ -88,6 +107,9 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
         
     }
     const selectValue = (ev: ChangeEvent<HTMLInputElement>) => {
+        /**
+         * Assumes that a certain value of a Bayes Node is observed.
+         */
         let selectedValue = ev.target.value;
         if (selectedValue === "") {
             selectedValue === undefined;
@@ -98,7 +120,6 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
         }, true)
     }
     const conditions = getConditionCombinations(network, nodeName);
-    // console.log(network.nodes[nodeName].table.rows);
 
     return <div className='BayesNodeCore'>
         <input type="text" value={bNode.name} onChange={setName} className="mb-3 w-100"/>

@@ -8,6 +8,9 @@ import exDBD from "./examples/ExampleDBD.json";
 type ExampleID = "Ex1" | "Ex2" | "Ex3" | "New"
 
 export const exampleNetwork = (example: ExampleID) => {
+    /**
+     * Loads the examples.
+     */
     let network: BayesNetworkData;
     switch (example) {
         case "Ex1":

@@ -1,9 +1,13 @@
 import { BayesNetworkData, generatePossibleValues, getParents, hashCondition } from "./bayes_network"
 
 export const simulateNetwork = (network: BayesNetworkData) => {
+    /**
+     * Simulates the bayes network to figure out the probability distributions of the values of each node.
+     */
+
     // Generate all possible states
     const nodeKeys = Object.keys(network.nodes);
-    let possibleNetworkStates = generatePossibleValues(network, nodeKeys, 0);
+    let possibleNetworkStates = generatePossibleValues(network, nodeKeys);
 
     // Filter all possible states according to selected values
     const selectedValues: Record<string, string> = {};

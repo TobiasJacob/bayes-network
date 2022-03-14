@@ -22,13 +22,22 @@ const BayesConnectionRenderer = ({network, setNetwork, tempConnection}: BayesCon
     });
 
     const getTopY = (nodeName: string) => {
+        /**
+         * Top X location of a node, precomputed as a function.
+         */
         return network.nodes[nodeName].positionY - 105 - 12 * rowCount[nodeName];
     }
     const getTopX = (nodeName: string, fromNode: string) => {
+        /**
+         * Top X location of a node, precomputed as a function.
+         */
         const delta = network.nodes[fromNode].positionX - network.nodes[nodeName].positionX;
         return network.nodes[nodeName].positionX + 0.1 * delta;
     }
     const getBottomY = (nodeName: string) => {
+        /**
+         * Bottom Y location of a node, precomputed as a function.
+         */
         return network.nodes[nodeName].positionY + 92 + 12 * rowCount[nodeName];
     }
 

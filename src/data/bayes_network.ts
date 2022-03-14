@@ -1,36 +1,49 @@
 export class ProbabilityTable {
-    nodeValues: Record<string, string>
-    nodeProbabilities: Record<string, number>
-    rows: Record<string, Record<string, string>>
+    /**
+     * Represents the probability table
+     */
+    nodeValues: Record<string, string> // The values a node can be set to. A record of valueID -> displayText
+    nodeProbabilities: Record<string, number> // The probabilities of the event
+    rows: Record<string, Record<string, string>> // Contains a map of conditionID -> valueID -> probability, where probability is expressed as string to make editing easier
 }
 
 export class BayesNodeData {
-    positionX: number
-    positionY: number
-    name: string
-    table: ProbabilityTable
-    selectedValue?: string
-    parents: string[]
-}
-
-export class Connection {
-    from: string
-    to: string
+    /**
+     * Represents the full bayes node.
+     */
+    positionX: number // Position X of the node
+    positionY: number // Position Y of the node
+    name: string // Display name of the node
+    table: ProbabilityTable // The probability table
+    selectedValue?: string // The value a user might have observed
+    parents: string[] // The parents of this node
 }
 
 export class BayesNetworkData {
-    nodes: Record<string, BayesNodeData>
+    /**
+     * Represents a bayesian network.
+     */
+    nodes: Record<string, BayesNodeData> // All nodes of the network. The edges are acessible via the parents property.
 }
 
 export const existsConnection = (network: BayesNetworkData, from: string, to: string) => {
+    /**
+     * Checks if there is a connection between two nodes.
+     */
     return network.nodes[to].parents.includes(from);
 }
 
 export const getParents = (network: BayesNetworkData, nodeName: string) => {
+    /**
+     * Returns the parents of a node.
+     */
     return network.nodes[nodeName].parents;
 }
 
-export const generatePossibleValues = (network: BayesNetworkData, parentIDs: string[], index: number) => {
+export const generatePossibleValues = (network: BayesNetworkData, parentIDs: string[], index: number = 0) => {
+    /**
+     * Recursive funciton to generate all possible conditions a certain node might assume based on the parents of the node.
+     */
     if (index >= Object.keys(parentIDs).length) return [{}];
     const nodeName = parentIDs[index];
 
@@ -50,15 +63,18 @@ export const generatePossibleValues = (network: BayesNetworkData, parentIDs: str
 }
 
 export const getConditionCombinations = (network: BayesNetworkData, nodeName: string) => {
+    /**
+     * Returns all possible conditions a certain node might assume based on the parents of the node.
+     */
     const parentKeys = getParents(network, nodeName);
-    // console.log(parentKeys);
-    
-    const result = generatePossibleValues(network, parentKeys, 0);
-    // console.log(result);
+    const result = generatePossibleValues(network, parentKeys);
     return result;
 }
 
 export const hashCondition = (cond: Record<string, string>) => {
+    /**
+     * Helper function to hash a condition to a string which can be used to access probabilities.
+     */
     let res = "";
     const keys = Object.entries(cond);
     keys.sort();
@@ -69,6 +85,9 @@ export const hashCondition = (cond: Record<string, string>) => {
 }
 
 export const getRowCount = (network: BayesNetworkData, nodeName: string) => {
+    /**
+     * Returns the number of rows a node has in its condition table. This is exponential with respect to the number of parents.
+     */
     const parents = getParents(network, nodeName);
     let rows = 1;
     parents.forEach((parentName) => {

@@ -13,14 +13,24 @@ export class NodeProps {
 }
 
 const BayesNode = ({nodeName, network, setNetwork, setTempConnection}: NodeProps) => {
+    /**
+     * Visualizes a draggable BayesNode. This part is mostly focused on dragging.
+     */
+
     const [dragged, setDragged] = useState(false);
     const bNode = network.nodes[nodeName];
 
     const mouseDown = (ev: React.MouseEvent<HTMLDivElement>) => {
+        /**
+         * Mouse Down Event starts dragging if no input is selected.
+         */
         if ((ev.target as any)?.tagName === "INPUT") return;
         setDragged(true);
     }
     const mouseMove = (ev: React.MouseEvent<HTMLDivElement>) => {
+        /**
+         * Updates the position of the node.
+         */
         if (ev.buttons != 1 && dragged) {
             setDragged(false);
         } else if (dragged) {
@@ -38,9 +48,15 @@ const BayesNode = ({nodeName, network, setNetwork, setTempConnection}: NodeProps
         }
     }
     const mouseUp = (ev: React.MouseEvent<HTMLDivElement>) => {
+        /**
+         * Stops dragging.
+         */
         setDragged(false);
     }
     const startConnect = (ev: React.MouseEvent<HTMLButtonElement>) => {
+        /**
+         * Starts a new temporary connection, which is used to connect this node to another one.
+         */
         ev.stopPropagation();
         setTempConnection({
             from: nodeName,

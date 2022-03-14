@@ -10,10 +10,16 @@ import { loadNetwork, saveNetwork } from '../data/save_network';
 const exampe = exampleNetwork('Ex1');
 
 const BayesCanvas = () => {
-    const [network, setNetwork] = useState(exampe);
-    const [tempConnection, setTempConnection] = useState<TempConnection | undefined>();
+    /**
+     * Visualizes the whole bayes network with nodes and connections.
+     */
+    const [network, setNetwork] = useState(exampe); // The bayes network.
+    const [tempConnection, setTempConnection] = useState<TempConnection | undefined>(); // A temporary connection to be rendered when the user starts dragging a new connection.
 
     const addNode = () => {
+        /**
+         * Adds a new node with a random position.
+         */
         console.log("add")
         var key = "node" + Object.keys(network.nodes).length;
         setNetwork({
@@ -35,6 +41,9 @@ const BayesCanvas = () => {
         })
     }
     const mouseMove = (ev: React.MouseEvent<HTMLDivElement>) => {
+        /**
+         * Drags the temporary connection if it was started by a BayesNode.
+         */
         ev.preventDefault();
         if (tempConnection) {
             setTempConnection({
@@ -45,6 +54,9 @@ const BayesCanvas = () => {
         }
     }
     const mouseUp = (ev: React.MouseEvent<HTMLDivElement>) => {
+        /**
+         * Checks if the temporary connection is connected to another node.
+         */
         ev.preventDefault();
         if (tempConnection) {
             for (const toKey in network.nodes) {

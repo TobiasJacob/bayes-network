@@ -33,11 +33,17 @@ const readSingleFile = async (e: ChangeEvent<HTMLInputElement>) => {
 }
 
 export const saveNetwork = (network: BayesNetworkData) => {
+    /**
+     * Downloads the network.
+     */
     const json_dump = JSON.stringify(network);
     download(json_dump, "BayesNetwork.json", "json")
 }
 
 export const loadNetwork = async (e: ChangeEvent<HTMLInputElement>, setNetwork: (net: BayesNetworkData) => void) => {
+    /**
+     * Let's the user open a saved network.
+     */
     e.preventDefault();
     const json_input = await readSingleFile(e);
     const network = JSON.parse(json_input);
