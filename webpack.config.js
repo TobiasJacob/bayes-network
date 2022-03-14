@@ -20,7 +20,7 @@ module.exports = {
     static: './dist',
     hot: true,
   },
-  devtool: 'eval-source-map',
+  devtool: process.env.SOURCE_MAP ? 'inline-source-map' : 'hidden-source-map',
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
