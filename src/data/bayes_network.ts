@@ -18,11 +18,15 @@ export const exampleNetwork: () => BayesNetworkData = () => {
     return {
         nodes: {
             "node0": {
-                positionX: 400,
+                positionX: 200,
                 positionY: 400,
             },
             "node1": {
-                positionX: 400,
+                positionX: 200,
+                positionY: 800,
+            },
+            "node2": {
+                positionX: 600,
                 positionY: 800,
             },
         },

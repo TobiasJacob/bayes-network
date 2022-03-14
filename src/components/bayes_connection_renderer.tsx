@@ -3,12 +3,19 @@ import { BayesNetworkData } from '../data/bayes_network';
 
 import './bayes_connection_renderer.css';
 
+export class TempConnection {
+    from: string
+    toX: number
+    toY: number
+}
+
 class BayesConnectionRendererProps {
     network: BayesNetworkData
     setNetwork: (newNetwork: BayesNetworkData) => void
+    tempConnection: TempConnection | undefined
 };
 
-const BayesConnectionRenderer = ({network, setNetwork}: BayesConnectionRendererProps) => {
+const BayesConnectionRenderer = ({network, setNetwork, tempConnection}: BayesConnectionRendererProps) => {
     return <div className='AbsPosFullSize'>
         <svg className='AbsPosFullSize'>
             <defs>
@@ -33,6 +40,19 @@ const BayesConnectionRenderer = ({network, setNetwork}: BayesConnectionRendererP
                         />
                     );
                 })
+            }
+            {
+                tempConnection && (
+                    <line
+                        x1={network.nodes[tempConnection.from].positionX}
+                        y1={network.nodes[tempConnection.from].positionY + 80}
+                        x2={tempConnection.toX}
+                        y2={tempConnection.toY}
+                        stroke="black"
+                        strokeWidth="6px"
+                        markerEnd='url(#arrow)'
+                    />
+                )
             }
         </svg>
         {

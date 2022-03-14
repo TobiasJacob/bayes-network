@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BayesNetworkData } from '../data/bayes_network';
+import { TempConnection } from './bayes_connection_renderer';
 
 import './bayes_node.css';
 
@@ -7,9 +8,10 @@ export class NodeProps {
     nodeName: string
     network: BayesNetworkData
     setNetwork: (newNetwork: BayesNetworkData) => void
+    setTempConnection: (conn: TempConnection) => void
 }
 
-const BayesNode = ({nodeName, network, setNetwork}: NodeProps) => {
+const BayesNode = ({nodeName, network, setNetwork, setTempConnection}: NodeProps) => {
     const [dragged, setDragged] = useState(false);
     const bNode = network.nodes[nodeName];
 
@@ -41,7 +43,11 @@ const BayesNode = ({nodeName, network, setNetwork}: NodeProps) => {
     const startConnect = (ev: React.MouseEvent<HTMLButtonElement>) => {
         ev.preventDefault();
         ev.stopPropagation();
-        console.log("start");
+        setTempConnection({
+            from: nodeName,
+            toX: ev.clientX,
+            toY: ev.clientY,
+        })
     }
 
     return <div className='BayesNode' style={{
