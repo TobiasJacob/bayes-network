@@ -1,43 +1,44 @@
 import React, { useState } from 'react';
-import BayesNode, { NodeProps } from './bayes_node';
+import BayesNode from './bayes_node';
+import { exampleNetwork } from '../data/bayes_network';
+import BayesConnectionRenderer from './bayes_connection_renderer';
 
 import './bayes_canvas.css';
 
-class NodeStruct {
-    positionX: number
-    positionY: number
-}
 
 const BayesCanvas = () => {
-    const [nodes, setNodes] = useState<Record<string, NodeStruct>>({
-        "firstNode": {
-            positionX: 400,
-            positionY: 400,
-        }
-    });
+    const [network, setNetwork] = useState(exampleNetwork());
 
     const addNode = () => {
-        var key = "node" + Object.keys(nodes).length;
-        setNodes({
-            ...nodes,
-            [key]: {
-                positionX: 200,
-                positionY: 200,
+        var key = "node" + (Object.keys(network.nodes).length + 1);
+        setNetwork({
+            ...network,
+            nodes: {
+                ...network.nodes,
+                [key]: {
+                    positionX: 200,
+                    positionY: 200,
+                }
             }
         })
     }
 
     return <div className='BayesCanvas'>
         <button className='AddButton' onClick={addNode}>AddButton</button>
+        <BayesConnectionRenderer network={network}/>
+
         {
-            Object.entries(nodes).map(([key, bNode]) => {
+            Object.entries(network.nodes).map(([key, bNode]) => {
                 return <BayesNode key={key} positionX={bNode.positionX} positionY={bNode.positionY} setPosition={
                     (newX, newY) => {
-                        setNodes({
-                            ...nodes,
-                            [key]: {
-                                positionX: newX,
-                                positionY: newY,
+                        setNetwork({
+                            ...network,
+                            nodes: {
+                                ...network.nodes,
+                                [key]: {
+                                    positionX: newX,
+                                    positionY: newY,
+                                }
                             }
                         })
                     }
