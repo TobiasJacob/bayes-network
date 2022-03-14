@@ -12,7 +12,9 @@ export const exampleNetwork: () => BayesNetworkData = () => {
                 table:  {
                     nodeValues: {"val0": "High", "val1": "Low"},
                     nodeProbabilities: {"val0": parseFloat('Nan'), "val1": parseFloat('Nan')},
-                    rows: {},
+                    rows: {
+                        "": {"val0": "0.5", "val1": "0.5"}
+                    },
                 },
             },
             "node1": {
@@ -22,7 +24,9 @@ export const exampleNetwork: () => BayesNetworkData = () => {
                 table:  {
                     nodeValues: {"val0": "Difficult", "val1": "Easy"},
                     nodeProbabilities: {"val0": parseFloat('Nan'), "val1": parseFloat('Nan')},
-                    rows: {},
+                    rows: {
+                        "": {"val0": "0.5", "val1": "0.5"}
+                    },
                 },
             },
             "node2": {
@@ -32,7 +36,12 @@ export const exampleNetwork: () => BayesNetworkData = () => {
                 table:  {
                     nodeValues: {"val0": "A", "val1": "D"},
                     nodeProbabilities: {"val0": parseFloat('Nan'), "val1": parseFloat('Nan')},
-                    rows: {},
+                    rows: {
+                        "node0=val0,node1=val0,": {"val0": "0.5", "val1": "0.5"},
+                        "node0=val0,node1=val1,": {"val0": "0.9", "val1": "0.1"},
+                        "node0=val1,node1=val1,": {"val0": "0.5", "val1": "0.5"},
+                        "node0=val1,node1=val0,": {"val0": "0.1", "val1": "0.9"},
+                    },
                 },
             },
         },
