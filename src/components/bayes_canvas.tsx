@@ -5,6 +5,7 @@ import BayesConnectionRenderer, { TempConnection } from './bayes_connection_rend
 import { exampleNetwork } from '../data/example1';
 
 import './bayes_canvas.css';
+import { saveNetwork } from '../data/save_network';
 
 const exampe = exampleNetwork();
 
@@ -77,7 +78,10 @@ const BayesCanvas = () => {
                 return <BayesNode key={key} nodeName={key} network={network} setNetwork={setNetwork} setTempConnection={setTempConnection}/>
             })
         }
-        <button className='AddButton' onClick={addNode}>Add Node</button>
+        <div className='CanvasButtons'>
+            <button onClick={addNode}>Add Node</button><br />
+            <button onClick={() => saveNetwork(network)}>Download</button>
+        </div>
     </div>
 }
 

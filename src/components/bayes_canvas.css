@@ -7,8 +7,12 @@
     position: relative;
 }
 
-.AddButton {
+.CanvasButtons {
     position: absolute;
     top: 1em;
     right: 1em;
+}
+
+.CanvasButtons > button {
+    margin-bottom: 0.5em;
 }
