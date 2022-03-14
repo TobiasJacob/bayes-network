@@ -9,6 +9,7 @@ export class BayesNodeData {
     positionY: number
     name: string
     table: ProbabilityTable
+    selectedValue?: string
 }
 
 export class Connection {

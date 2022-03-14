@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { BayesNetworkData, BayesNodeData, getConditionCombinations, hashCondition } from '../data/bayes_network';
 import { simulateNetwork } from '../data/simulate_network';
 import { TempConnection } from './bayes_connection_renderer';
@@ -90,6 +90,16 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
         }, true)
         
     }
+    const selectValue = (ev: ChangeEvent<HTMLInputElement>) => {
+        let selectedValue = ev.target.value;
+        if (selectedValue === "") {
+            selectedValue === undefined;
+        }
+        setNode({
+            ...bNode,
+            selectedValue
+        }, true)
+    }
     const conditions = getConditionCombinations(network, nodeName);
     // console.log(network.nodes[nodeName].table.rows);
 
@@ -135,7 +145,20 @@ const BayesNodeCore = ({nodeName, network, setNetwork}: NodeProps) => {
                 }
                 <tr>
                     {...Object.entries(conditions[0]).map(([nodeKey, _]) => {
-                        return <td />
+                        return <td key={nodeKey} />
+                    })}
+                    {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
+                        return <td key={key}>
+                            <input type="radio" name={nodeName} onChange={selectValue} value={key} checked={bNode.selectedValue === key}/>
+                        </td>
+                    })}
+                    <td>
+                        <input type="radio" name={nodeName} onChange={selectValue} value="" checked={!bNode.selectedValue}/>
+                    </td>
+                </tr>
+                <tr>
+                    {...Object.entries(conditions[0]).map(([nodeKey, _]) => {
+                        return <td key={nodeKey} />
                     })}
                     {...Object.entries(bNode.table.nodeValues).map(([key, val]) => {
                         return <td key={key}>
