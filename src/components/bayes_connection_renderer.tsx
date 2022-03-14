@@ -38,19 +38,21 @@ const BayesConnectionRenderer = ({network, setNetwork, tempConnection}: BayesCon
                 </marker>
             </defs>
             {
-                Object.entries(network.connections).map(([key, conn]) => {
-                    return (
-                        <line
-                            key={key}
-                            x1={network.nodes[conn.from].positionX}
-                            y1={getBottomY(conn.from)}
-                            x2={network.nodes[conn.to].positionX}
-                            y2={getTopY(conn.to)}
-                            stroke="white"
-                            strokeWidth="0.2em"
-                            markerEnd='url(#arrow)'
-                        />
-                    );
+                Object.keys(network.nodes).map((to) => {
+                    return network.nodes[to].parents.map((from) => {
+                        return (
+                            <line
+                                key={to + from}
+                                x1={network.nodes[from].positionX}
+                                y1={getBottomY(from)}
+                                x2={network.nodes[to].positionX}
+                                y2={getTopY(to)}
+                                stroke="white"
+                                strokeWidth="0.2em"
+                                markerEnd='url(#arrow)'
+                            />
+                        );
+                    });
                 })
             }
             {
@@ -68,26 +70,33 @@ const BayesConnectionRenderer = ({network, setNetwork, tempConnection}: BayesCon
             }
         </svg>
         {
-            Object.entries(network.connections).map(([key, conn]) => {
-                const buttonX = (network.nodes[conn.from].positionX + network.nodes[conn.to].positionX) / 2;
-                const buttonY = (getBottomY(conn.from) + getTopY(conn.to)) / 2;
-                return (
-                    <button
-                        key={key}
-                        className='RemoveButton'
-                        style={{
-                            top: buttonY,
-                            left: buttonX
-                        }}
-                        onClick={() => {
-                            const {[key]: deletedKey, ...connections} = network.connections
-                            setNetwork({
-                                ...network,
-                                connections
-                            })
-                        }}
-                    >Remove</button>
-                );
+            Object.keys(network.nodes).map((to) => {
+                return network.nodes[to].parents.map((from) => {
+                    const buttonX = (network.nodes[from].positionX + network.nodes[to].positionX) / 2;
+                    const buttonY = (getBottomY(from) + getTopY(to)) / 2;
+                    return (
+                        <button
+                            key={to + from}
+                            className='RemoveButton'
+                            style={{
+                                top: buttonY,
+                                left: buttonX
+                            }}
+                            onClick={() => {
+                                setNetwork({
+                                    ...network,
+                                    nodes: {
+                                        ...network.nodes,
+                                        [to]: {
+                                            ...network.nodes[to],
+                                            parents: network.nodes[to].parents.filter((par) => (par !== from))
+                                        }
+                                    }
+                                })
+                            }}
+                        >Remove</button>
+                    );
+                });
             })
         }
     </div>;

@@ -10,6 +10,7 @@ export class BayesNodeData {
     name: string
     table: ProbabilityTable
     selectedValue?: string
+    parents: string[]
 }
 
 export class Connection {
@@ -19,31 +20,14 @@ export class Connection {
 
 export class BayesNetworkData {
     nodes: Record<string, BayesNodeData>
-    connections: Record<string, Connection>
 }
 
 export const existsConnection = (network: BayesNetworkData, from: string, to: string) => {
-    for (const key in network.connections) {
-        if (Object.prototype.hasOwnProperty.call(network.connections, key)) {
-            const conn = network.connections[key];
-            if (conn.from == from && conn.to == to) {
-                return true;
-            }
-        }
-    }
-    return false;
+    return network.nodes[to].parents.includes(from);
 }
 
 export const getParents = (network: BayesNetworkData, nodeName: string) => {
-    return Object.keys(network.nodes).filter((nodeKey) => {
-        for (const connKey in network.connections) {
-            if (Object.prototype.hasOwnProperty.call(network.connections, connKey)) {
-                const conn = network.connections[connKey];
-                if (conn.from == nodeKey && conn.to === nodeName) return true;
-            }
-        }
-        return false;
-    })
+    return network.nodes[nodeName].parents;
 }
 
 export const generatePossibleValues = (network: BayesNetworkData, parentIDs: string[], index: number) => {

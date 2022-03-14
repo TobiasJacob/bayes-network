@@ -24,10 +24,11 @@ const BayesCanvas = () => {
                     positionY: 200,
                     name: "Node",
                     table: {
-                    nodeValues: {"val0": "A"},
-                    nodeProbabilities: {"val0": parseFloat('Nan')},
-                    rows: {"": {"val0": "1.0"} }
-                    }
+                        nodeValues: {"val0": "A"},
+                        nodeProbabilities: {"val0": parseFloat('Nan')},
+                        rows: {"": {"val0": "1.0"} },
+                    },
+                    parents: [],
                 }
             }
         })
@@ -45,20 +46,19 @@ const BayesCanvas = () => {
     const mouseUp = (ev: React.MouseEvent<HTMLDivElement>) => {
         ev.preventDefault();
         if (tempConnection) {
-            for (const key in network.nodes) {
-                if (key === tempConnection.from) continue;
-                if (Object.prototype.hasOwnProperty.call(network.nodes, key)) {
-                    const bNode = network.nodes[key];
+            for (const toKey in network.nodes) {
+                if (toKey === tempConnection.from) continue;
+                if (Object.prototype.hasOwnProperty.call(network.nodes, toKey)) {
+                    const bNode = network.nodes[toKey];
                     if (Math.abs(bNode.positionX - tempConnection.toX) < 80 && Math.abs(bNode.positionY - tempConnection.toY) < 80) {
-                        const connKey = "conn" + Object.keys(network.connections).length;
-                        if (existsConnection(network, tempConnection.from, key)) continue;
+                        if (existsConnection(network, tempConnection.from, toKey)) continue;
                         setNetwork({
                             ...network,
-                            connections: {
-                                ...network.connections,
-                                [connKey]: {
-                                    from: tempConnection.from,
-                                    to: key,
+                            nodes: {
+                                ...network.nodes,
+                                [toKey]: {
+                                    ...network.nodes[toKey],
+                                    parents: [...network.nodes[toKey].parents, ...[tempConnection.from]],
                                 }
                             }
                         })

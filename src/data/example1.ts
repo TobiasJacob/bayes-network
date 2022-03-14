@@ -16,6 +16,7 @@ export const exampleNetwork: () => BayesNetworkData = () => {
                         "": {"val0": "0.5", "val1": "0.5"}
                     },
                 },
+                parents: [],
             },
             "node1": {
                 positionX: 600,
@@ -28,6 +29,7 @@ export const exampleNetwork: () => BayesNetworkData = () => {
                         "": {"val0": "0.5", "val1": "0.5"}
                     },
                 },
+                parents: [],
             },
             "node2": {
                 positionX: 400,
@@ -43,16 +45,7 @@ export const exampleNetwork: () => BayesNetworkData = () => {
                         "node0=val1,node1=val0,": {"val0": "0.1", "val1": "0.9"},
                     },
                 },
-            },
-        },
-        connections: {
-            "con0": {
-                from: "node0",
-                to: "node2",
-            },
-            "con1": {
-                from: "node1",
-                to: "node2",
+                parents: ["node0", "node1"],
             },
         }
     }
